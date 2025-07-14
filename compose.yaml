@@ -1,0 +1,22 @@
+name: symfony-php-eae
+
+# TODO: load env file
+
+services:
+  db:
+    image: symfony-php-eae.db
+    container_name: symfony-php-eae.db
+    build: docker/postgres
+    environment:
+      # Set the container environmental with default values defined
+      POSTGRES_DB: ${POSTGRES_DB:-db}
+      POSTGRES_USER: ${POSTGRES_USER:-usr}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-passwd}
+      POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD:-passwd}
+    ports:
+      - ${PORT_DB:-5432}:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
